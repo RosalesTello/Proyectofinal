@@ -12,52 +12,50 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.inventario.Entidades.Categoria;
-import com.example.inventario.Service.serviceCategoria;
+import com.example.inventario.Entidades.Proveedor;
+import com.example.inventario.Service.serviceProveedor;
 
 import jakarta.validation.Valid;
 
-
-@RequestMapping("/Categorias") //ruta
+@RequestMapping("/Proveedores")
 @RestController
-
-public class CategoriaControlador {
+public class ProveedorControlador {
 	
-	@Autowired  serviceCategoria sevicio;
+	@Autowired serviceProveedor servicioproveedor;
 	
-	@GetMapping
-	public ResponseEntity<Object>todo()
+	@GetMapping 
+	public ResponseEntity<Object>lista()
 	{
-		return sevicio.listaCategoria();
-		
+		return  servicioproveedor.lista() ;
 	}
 	
 	
 	@GetMapping("/filtrado/{id}")
 	public ResponseEntity<Object>filtrado(@PathVariable int id)
 	{
-		return sevicio.buscarporid(id);
+		return servicioproveedor.filtrado(id);
 		
 	}
 	
 	@PostMapping("/agregar")
-	public ResponseEntity<Object>agregarObjeto(@Valid @RequestBody Categoria categoria,BindingResult result)
+	public ResponseEntity<Object> agregar(@Valid @RequestBody Proveedor provedor,BindingResult result)
 	{
-		return sevicio.agregar(categoria,result);
-	}
-	
-	
-	@DeleteMapping("/eliminar/{id}")//no es necesario bilding solo cuando mandas como post y put
-	public ResponseEntity<Object>eliminarObjeto(@PathVariable int id )
-	{
-		return sevicio.eliminar(id);
+		return servicioproveedor.agregar(provedor, result);
+		
 	}
 	
 	@PutMapping("/actualizar/{id}")
-	public ResponseEntity<Object>agregarObjeto(@PathVariable int id,@Valid @RequestBody Categoria categoria,BindingResult result)
+	public ResponseEntity<Object>actualizar(@PathVariable int id,@Valid @RequestBody Proveedor provedor,BindingResult result)
+	
 	{
-		return sevicio.actualizar(id,categoria,result);
+		return servicioproveedor.actaulizar(id, provedor, result);
+		
 	}
 	
+	@DeleteMapping("/eliminar/{id}")
+	public ResponseEntity<Object>eliminar(@PathVariable int id)
+	{
+		return servicioproveedor.eliminar(id);
+	}
 
 }
