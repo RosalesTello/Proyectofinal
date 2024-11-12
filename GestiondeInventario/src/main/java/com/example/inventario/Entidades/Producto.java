@@ -37,9 +37,9 @@ public class Producto {
     @JoinColumn(name = "idcategoria", referencedColumnName = "idCategoria", nullable = false)
     private Categoria categoria;//aca hace referencia ala tabla producto
 
-    @ManyToOne
+    @ManyToOne       //nombre de la tabla 
     @JoinColumn(name = "idproveedor", referencedColumnName = "idProveedor", nullable = false)
-    private Proveedor proveedor;
+    private Proveedor proveedor;//el atributo  podria ir igual pero para la siguiete 
 
 	public Producto() {
 		super();

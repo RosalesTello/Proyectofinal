@@ -44,7 +44,7 @@ public class ProveedorControlador {
 		
 	}
 	
-	@PutMapping("/actualizar/{id}")
+	@PutMapping("/actualizar/{id}")          					//solo para validar     		     // para ver los errores 
 	public ResponseEntity<Object>actualizar(@PathVariable int id,@Valid @RequestBody Proveedor provedor,BindingResult result)
 	
 	{
