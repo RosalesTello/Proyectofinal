@@ -57,6 +57,7 @@ public class servicePedido {
 			return new ResponseEntity<>("el id de producto no coincide o no existe ",HttpStatus.NOT_FOUND);
 		}
 		
+	
 		if (producto.getStock()<pedido.getCantidad())
 			
 		{
@@ -83,14 +84,26 @@ public class servicePedido {
 		{
 			return new ResponseEntity<>("el id de producto no coincide o no existe ",HttpStatus.NOT_FOUND);
 		}
-		
+		//busca el pedido si existe 
 		Pedido pedidoActualizar=repoPedido.findById(id).orElse(null);
+		
 		if (pedidoActualizar==null)
 		{
 			return  new ResponseEntity<>("dato no se encontro",HttpStatus.NOT_FOUND);
 			
 		}
-		//pedidoActualizar.setIdPedido(pedido.getIdPedido()); veremos si es por el id pedido le paso un dato qu eno va en el cuerpo
+		
+		//tendria que ser menor alo que se va a mandar del cuerpo 
+		if(producto.getStock()< pedido.getCantidad())  //xk de aca voy a verificar lo que mande no de aca  pedidoActualizar= podria mandar y no llegaria a validar 
+		{
+			return  new ResponseEntity<>("stock insuficiente",HttpStatus.CONFLICT);
+		}
+		//aca lo suma con la cantidad del cuerpo mas no con lo anteriro que ya existe 
+		producto.setStock((producto.getStock()+pedidoActualizar.getCantidad())-pedido.getCantidad());    //creqo ue lo suma con la misma cantidad y no con lo anteriror
+		repoProducto.save(producto);//se guarda modificado en producto y asi 
+		
+			//lo suma  de las 2 tablas para  sumar ala normalidad y los resta con el pedido que manda el usuario
+		//no lo hace automaticamnet
 		pedidoActualizar.setCantidad(pedido.getCantidad());
 		pedidoActualizar.setFecha(pedido.getFecha());
 		pedidoActualizar.setProducto(pedido.getProducto());
