@@ -47,6 +47,15 @@ public class serviceProveedor {
 			return new ResponseEntity<>(result.getFieldError(),HttpStatus.BAD_REQUEST);
 		}
 		
+		Proveedor provedorrepetido=repoProveedor.findByNombre(provedor.getNombre()).orElse(null);
+		
+		if(provedorrepetido!=null)
+		{
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El proveedor ya existe, no se puede repetir");
+
+		}
+		
+		
 		Proveedor Provedor=repoProveedor.findById(provedor.getIdProveedor()).orElse(null);
 		if(Provedor==null)
 		{
@@ -55,6 +64,8 @@ public class serviceProveedor {
 		}
 		return new ResponseEntity<>("no se agrego el dato ",HttpStatus.CONFLICT);
 	}
+	
+	
 	
 	public ResponseEntity<Object>actaulizar(int id ,Proveedor provedor,BindingResult result)
 	{

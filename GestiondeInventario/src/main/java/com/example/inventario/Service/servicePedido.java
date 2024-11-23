@@ -93,17 +93,20 @@ public class servicePedido {
 			
 		}
 		
-		//tendria que ser menor alo que se va a mandar del cuerpo 
+		//tendria que ser menor alo que se va a mandar del cuerpo  con el cuerpo actualizado 
+		//si lo compara arriba sera   y no con lo del cuerpo para ver si hay xk hay pongo el cambio 
+		//no agrra nada de lo actualziado llegaria a actulizar pero si hay mas no lo verifica
+		//sie ntra compara pero con id del pedido para buscar no con el cuerpo entra normal pero si hago de mas cantidad no verifica siempre sera mneor
 		if(producto.getStock()< pedido.getCantidad())  //xk de aca voy a verificar lo que mande no de aca  pedidoActualizar= podria mandar y no llegaria a validar 
 		{
 			return  new ResponseEntity<>("stock insuficiente",HttpStatus.CONFLICT);
 		}
 		//aca lo suma con la cantidad del cuerpo mas no con lo anteriro que ya existe 
+		//podria ser pedido suma incluso que no seadel cuerpo xk id no se actualzia
 		producto.setStock((producto.getStock()+pedidoActualizar.getCantidad())-pedido.getCantidad());    //creqo ue lo suma con la misma cantidad y no con lo anteriror
 		repoProducto.save(producto);//se guarda modificado en producto y asi 
 		
-			//lo suma  de las 2 tablas para  sumar ala normalidad y los resta con el pedido que manda el usuario
-		//no lo hace automaticamnet
+			
 		pedidoActualizar.setCantidad(pedido.getCantidad());
 		pedidoActualizar.setFecha(pedido.getFecha());
 		pedidoActualizar.setProducto(pedido.getProducto());

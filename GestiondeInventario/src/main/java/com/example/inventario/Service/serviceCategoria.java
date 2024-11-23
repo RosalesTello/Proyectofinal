@@ -25,7 +25,7 @@ public class serviceCategoria {
 	{
 		List<Categoria>listado=repoCategoria.findAll();
 		
-		if (listado.isEmpty())
+		if (listado.isEmpty())  //listado=[]
 		{
 			return new ResponseEntity<>("sin datos",HttpStatus.NO_CONTENT);
 		}
@@ -52,7 +52,7 @@ public class serviceCategoria {
 	
 	
 	
-	public ResponseEntity<Object> agregar(Categoria producto, BindingResult result)
+	public ResponseEntity<Object> agregar(Categoria categoria, BindingResult result)
 	
 	{
 		if (result.hasErrors())
@@ -60,12 +60,21 @@ public class serviceCategoria {
 			return new ResponseEntity<>(result.getFieldErrors(),HttpStatus.BAD_REQUEST);
 		}
 		
+		Categoria categoriarepetida=repoCategoria.findByNombre(categoria.getNombre()).orElse(null);
 		
-		Categoria nuevoProducto =repoCategoria.findById(producto.getIdCategoria()).orElse(null);
+		if (categoriarepetida!=null)
+			
+		{
+			return new ResponseEntity<>("No se puede repetir nombre de la categoria",HttpStatus.BAD_REQUEST);
+		}
+		
+		
+		
+		Categoria nuevoProducto =repoCategoria.findById(categoria.getIdCategoria()).orElse(null);
 		
 		if (nuevoProducto==null)//aca no devuelve nada  TARE TODO DE ESO OSEA NADA 
 		{
-			repoCategoria.save(producto);//aca guarda el producto POR QUE ESE ID NO EXISTE
+			repoCategoria.save(categoria);//aca guarda el producto POR QUE ESE ID NO EXISTE
 			return new ResponseEntity<>("Dato nuevo",HttpStatus.CREATED);
 			
 		}
@@ -76,7 +85,7 @@ public class serviceCategoria {
 	}
 	
 	
-	public ResponseEntity<Object> actualizar (int id,Categoria producto, BindingResult result)
+	public ResponseEntity<Object> actualizar (int id,Categoria categoria, BindingResult result)
 	
 	{
 		if (result.hasErrors())
@@ -93,7 +102,8 @@ public class serviceCategoria {
 			
 		}
 		
-		productoActualizar.setNombre(producto.getNombre());
+		
+		productoActualizar.setNombre(categoria.getNombre());  
 		repoCategoria.save(productoActualizar);
 		
 		
