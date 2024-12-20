@@ -35,6 +35,7 @@ public class Producto {
 
     @ManyToOne
     @JoinColumn(name = "idcategoria", referencedColumnName = "idCategoria", nullable = false)
+    
     private Categoria categoria;//aca hace referencia ala tabla producto
 
     @ManyToOne       //nombre de la tabla 

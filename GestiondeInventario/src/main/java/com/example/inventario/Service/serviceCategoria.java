@@ -30,7 +30,7 @@ public class serviceCategoria {
 			return new ResponseEntity<>("sin datos",HttpStatus.NO_CONTENT);
 		}
 		
-		return new ResponseEntity<>(listado,HttpStatus.OK);
+		return new ResponseEntity<>(listado,HttpStatus.OK); 
 		
 	}
 	
@@ -59,7 +59,7 @@ public class serviceCategoria {
 		{
 			return new ResponseEntity<>(result.getFieldErrors(),HttpStatus.BAD_REQUEST);
 		}
-		
+		//el nombres mas que todo
 		Categoria categoriarepetida=repoCategoria.findByNombre(categoria.getNombre()).orElse(null);
 		
 		if (categoriarepetida!=null)
@@ -68,7 +68,7 @@ public class serviceCategoria {
 			return new ResponseEntity<>("No se puede repetir nombre de la categoria",HttpStatus.BAD_REQUEST);
 		}
 		
-		
+
 		
 		Categoria nuevoProducto =repoCategoria.findById(categoria.getIdCategoria()).orElse(null);
 		

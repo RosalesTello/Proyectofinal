@@ -18,7 +18,7 @@ public class Categoria {
     @Pattern(regexp = "^[A-Z\\s]+$", message = "El nombre debe estar en mayúsculas y solo contener letras y espacios.")
     private String nombre;
     
-
+    
     
 	public Categoria(int idCategoria,
 			@Size(max = 100) @Pattern(regexp = "^[A-Z\\s]+$", message = "El nombre debe estar en mayúsculas y solo contener letras y espacios.") String nombre) {

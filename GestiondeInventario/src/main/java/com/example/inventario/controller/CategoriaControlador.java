@@ -40,6 +40,7 @@ public class CategoriaControlador {
 		
 	}
 	
+	
 	@PostMapping("/agregar")   				//valida las anotacion del objeto      						captura los erroes de la validacion
 	public ResponseEntity<Object>agregarObjeto(@Valid @RequestBody Categoria categoria,BindingResult result)
 	{
